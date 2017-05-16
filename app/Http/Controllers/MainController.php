@@ -12,38 +12,46 @@ use App\Http\Requests;
 
 class MainController extends Controller
 {
+    protected $typeModel;
+    protected $subTypeModel;
+    protected $productsModel;
+
+    public function __construct(
+        TypeModel $typeModel, 
+        SubTypeModel $subTypeModel, 
+        ProductsModel $productsModel) 
+    {
+        $this->typeModel = $typeModel;
+        $this->subTypeModel = $subTypeModel;
+        $this->productsModel = $productsModel;
+    }
+
     public function typeData()
     {
-        $typeModel = new TypeModel();
-        $data = $typeModel->getTypeDataFromDb();
-
-        return $data;
+        // return $this->typeModel->getTypeDataFromDb();
+        return view('form.MainView', ['countries' => $this->typeModel->getTypeDataFromDb()]);
     }
 
     public function getSubTyp()
     {
-        $subTypeModel = new SubTypeModel();
-
-        echo json_encode($subTypeModel->getDataFromDbSubType(Request::input('code')));//$_POST['code']));
+        echo json_encode($this->subTypeModel->getDataFromDbSubType(Request::input('code')));
     }
 
     public function getProduct()
     {
-        $productsModel = new ProductsModel();
-
-        echo json_encode($productsModel->getDataFromDbModels(Request::input('lol')));//$_POST['lol']));
+        echo json_encode($this->productsModel->getDataFromDbModels(Request::input('lol')));
     }
 
-    public function index()
-    {
-        if (!Request::has('code') && !Request::has('lol')){
-            return view('form.MainView', ['countries' => $this->typeData()]);
-        } elseif (Request::has('code')) {
-            return $this->getSubTyp();
-            exit;
-        } elseif (Request::has('lol')) {
-            return $this->getProduct();
-            exit;
-        }
-    }
+    // public function index()
+    // {
+    //     if (!Request::has('code') && !Request::has('lol')) {
+    //         return view('form.MainView', ['countries' => $this->typeData()]);
+    //     } elseif (Request::has('code')) {
+    //         return $this->getSubTyp();
+    //         exit;
+    //     } elseif (Request::has('lol')) {
+    //         return $this->getProduct();
+    //         exit;
+    //     }
+    // }
 }

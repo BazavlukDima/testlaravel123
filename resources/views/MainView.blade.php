@@ -6,54 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Form</title>
 
-    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/style.css">
+    {{ HTML::style('../../bootstrap/css/bootstrap.min.css') }}
+    {{ HTML::style('../../css/style.css') }}
 </head>
 <body>
     <h1>Select Form:</h1>
     <div class="container content">
         <div class="centered-top">
-            <form class="form-horizontal" method="post" id="form">
+            {{ Form::open(['method' => 'POST', 'class' => 'form-horizontal', 'id' => 'form'])}}
+                {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Type</label>
+                    {{ Form::label('name', 'Type', ['class' => 'col-sm-2 control-label']) }}
                     <div class="col-sm-6">
-                        <select class="form-control" name="country" id="country">
+                        {{ Form::select('country', ['class' => 'form-control', 'id' => 'country']) }}
                             <option disabled selected>Choose...</option>
-                            <?php foreach($countries as $country): ?>
-                                <option value="<?=$country['Code']?>"><?=$country['Name']?></option>
-                            <?php endforeach; ?>
-                        </select>
+                            @foreach($countries as $country):
+                                <option value="{{ $country['Code'] }}">{{ $country['Name'] }}</option>
+                            @endforeach
                     </div>
                 </div>
+
                 <div class="form-group city-select">
-                    <label for="name" class="col-sm-2 control-label">Subtype</label>
+                    {{ Form::label('name', 'Subtype', ['class' => 'col-sm-2 control-label']) }}
                     <div class="col-sm-6">
-                        <select class="form-control" name="city" id="city">
+                        {{ Form::select('city', ['class' => 'form-control', 'id' => 'city']) }}
                             <option disabled selected>Choose...</option>
-                        </select>
                     </div>
                 </div>
+
                 <div class="form-group model-select">
-                    <label for="name" class="col-sm-2 control-label">Model</label>
+                    {{ Form::label('name', 'Model', ['class' => 'col-sm-2 control-label']) }}
                     <div class="col-sm-6">
-                        <select class="form-control" name="model" id="model">
+                        {{ Form::select('model', ['class' => 'form-control', 'id' => 'model']) }}
                             <option disabled selected>Choose...</option>
-                        </select>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-6">
-                        <button type="submit" id="submit" class="btn btn-primary">Отправить</button>
-                        <div></div>
+                        {{ Form::submit('Отправить', ['id' => 'submit', 'class' => 'btn btn-primary']) }}
                     </div>
                 </div>
-            </form>
+            {{ Form::close() }}
         </div>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../js/main.js"></script>
-
+    {{ HTML::script('https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js') }}
+    {{ HTML::script('../../bootstrap/js/bootstrap.min.js') }}
+    {{ HTML::script('../../js/main.js') }}
     </body>
 </html>

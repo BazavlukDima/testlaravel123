@@ -11,4 +11,8 @@
 |
 */
 
-Route::match(['get', 'post'],'/', 'MainController@index');
+Route::get('/', 'MainController@typeData');
+
+Route::get('getSubTyp', 'MainController@getSubTyp');
+
+Route::get('getProduct', 'MainController@getProduct');

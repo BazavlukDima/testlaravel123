@@ -12,7 +12,9 @@ class SubTypeModel extends Model
 
     public function getDataFromDbSubType($prev)
     {
-        $data = SubTypeModel::select('ID', 'Name')->where('CountryCode', $prev)->get();
+        $data = SubTypeModel::select('ID', 'Name')
+            ->where('CountryCode', $prev)
+            ->get();
         $data = $data->toArray();
 
         return $data;

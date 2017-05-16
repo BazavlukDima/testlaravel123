@@ -1,3 +1,4 @@
+console.log("{{ URL::action('MainController@getSubTyp') }}");
 $(".city-select").hide();
 $(".model-select").hide();
 
@@ -5,7 +6,7 @@ $(function(){
     $('#country').change(function() {
         $(".city-select").show();
         var code = $("#country").val();
-        $.get( '../index.php', {code: code},function(data) {
+        $.get( 'getSubTyp', {code: code},function(data) {
             wrOption(data, '#city', '.city-select');
         });
     });
@@ -15,7 +16,7 @@ $(function(){
     $('#city').change(function() {
         $(".model-select").show();
         var lol = $("#city").val();
-        $.get( '../index.php', {lol: lol}, function(data) {
+        $.get( 'getProduct', {lol: lol}, function(data) {
             wrOption(data, '#model', '.model-select');
         });
     });
